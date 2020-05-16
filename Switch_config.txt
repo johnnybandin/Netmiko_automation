@@ -1,0 +1,26 @@
+!!! Switch Base Config !!!
+
+configure terminal
+!
+hostname AS1
+ip domain-name test.lab
+ip domain-lookup
+ip name-server 8.8.8.8
+username johnny priv 15 secret cisco
+crypto key generate rsa modu 1024
+interface vlan 1
+ ip add 192.168.122.17 255.255.255.0
+ no shut
+ip routing
+ip route 0.0.0.0 0.0.0.0 192.168.122.1
+ip default-gateway 192.168.122.1
+line vty 0 4
+ login local
+ logging synch
+ transport input all
+ exec-timeout 0 0
+ exit
+!
+exit
+terminal monitor
+copy run start
